@@ -1,0 +1,54 @@
+@isTest
+private class StewardListControllerTest {
+
+    static testMethod void testMethod1(){
+            //Insert SubLocal Record 
+            CVRSOS__Local__c s = new CVRSOS__Local__c();
+            list<CVRSOS__Local__c> sList = new list<CVRSOS__Local__c>();
+            sList.add(s);
+            insert sList;
+
+            Id sublocalId = sList[0].Id;
+        
+           //Insert Contacts
+           Account a = new Account(Name = 'Test Account');
+       	   Insert a;
+
+           Contact c1 = New Contact(AccountId = a.Id, FirstName='FirstName1', LastName='LastName1');
+           Contact c2 = New Contact(AccountId = a.Id, FirstName='FirstName2', LastName='LastName2');
+           Insert c1;
+           Insert c2;
+
+            //Insert Stewards
+            CVRSOS__LocalSteward__c st1 = new CVRSOS__LocalSteward__c(	CVRSOS__ContactId__c = c1.Id, CVRSOS__LocalId__c = sublocalId);
+            CVRSOS__LocalSteward__c st2 = new CVRSOS__LocalSteward__c(	CVRSOS__ContactId__c = c2.Id, CVRSOS__LocalId__c = sublocalId);
+            list<CVRSOS__LocalSteward__c> stList = new list<CVRSOS__LocalSteward__c>();
+            stList.add(st1);
+            stList.add(st2);
+            insert stList;
+
+            Test.StartTest(); 
+
+            PageReference pageRef = Page.ActiveStewards; 
+            pageRef.getParameters().put('id', String.valueOf(sublocalId));
+            Test.setCurrentPage(pageRef);
+
+            ApexPages.StandardController sc = new ApexPages.StandardController(s);
+            StewardListController ext = new StewardListController(sc);
+
+            //Test that Stewards are Inserted
+            list<CVRSOS__LocalSteward__c> obj1 = ext.getStewards();
+            system.assertequals(obj1.size(),2);
+            
+            //Delete Records
+            delete sList;
+            delete stList;
+            
+            //Test that Notes are Deleted
+            list<CVRSOS__LocalSteward__c> obj2 = ext.getStewards();
+            system.assertEquals(obj2.size(),0); 
+
+            Test.StopTest();
+        }     
+
+}
