@@ -1,0 +1,32 @@
+public with sharing class UserStewardListController {
+
+    private final User user;
+
+    public UserStewardListController(ApexPages.StandardController stdController) {
+        // this.user = (User)stdController.getRecord();
+        public User u {get; set;}
+        public Account account {get; set;}
+        public Contact contact {get; set;}
+        public newOpportunityController() {
+        this.u = [SELECT Id, Contact.AccountId, Contact.Account.Name FROM User WHERE Id = :UserInfo.getUSerId()];
+        System.debug( 'The User Id is' + u);
+        this.sublocal =u.Contact.CVRSOS__Local__c;
+        this.contact = u.Contact;
+        System.debug( 'The Contact Id is' + this.contact);
+        System.debug( 'The Sublocal Id is' + this.sublocal);
+}
+    }
+
+    public List<CVRSOS__LocalSteward__c> getStewards() {
+        return [
+            SELECT  Id,
+                CVRSOS__StewardName__c,
+                Steward_Best_Phone__c,
+                Steward_Preferred_Email__c,
+                Steward_Worksite_Employer__c,
+                Steward_Worksite__c
+            FROM    CVRSOS__LocalSteward__c
+            WHERE   ( CVRSOS__LocalId__c = :sublocal AND CVRSOS__Active__c = True)
+        ];
+    }
+}

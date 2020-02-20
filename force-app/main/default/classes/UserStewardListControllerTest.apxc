@@ -1,5 +1,5 @@
 @isTest
-private class StewardListControllerTest {
+private class UserStewardListControllerTest {
 
     static testMethod void testMethod1(){
             //Insert SubLocal Record 
@@ -16,8 +16,14 @@ private class StewardListControllerTest {
 
            Contact c1 = New Contact(AccountId = a.Id, FirstName='FirstName1', LastName='LastName1');
            Contact c2 = New Contact(AccountId = a.Id, FirstName='FirstName2', LastName='LastName2');
+           Contact c3 = New Contact(AccountId = a.Id, FirstName='UserFirst', LastName='UserLast');
            Insert c1;
            Insert c2;
+           Insert c3;
+        
+           //Insert User
+           
+           User u = New User(Contact=c3);
 
             //Insert Stewards
             CVRSOS__LocalSteward__c st1 = new CVRSOS__LocalSteward__c(	CVRSOS__ContactId__c = c1.Id, CVRSOS__LocalId__c = sublocalId);
@@ -29,20 +35,20 @@ private class StewardListControllerTest {
 
             Test.StartTest(); 
 
-            PageReference pageRef = Page.ActiveStewards; 
+            PageReference pageRef = Page.UserContactSublocalStewardList; 
             pageRef.getParameters().put('id', String.valueOf(sublocalId));
             Test.setCurrentPage(pageRef);
 
-            ApexPages.StandardController sc = new ApexPages.StandardController(s);
-            StewardListController ext = new StewardListController(sc);
+            ApexPages.StandardController sc = new ApexPages.StandardController(u);
+            UserStewardListController ext = new UserStewardListController(sc);
 
             //Test that Stewards are Inserted
             list<CVRSOS__LocalSteward__c> obj1 = ext.getStewards();
             // system.assertequals(obj1.size(),2);
             
             //Delete Records
-            delete sublocalList;
-            delete stewardList;
+            // delete sublocalList;
+            // delete stewardList;
             
             //Test that Stewards are Deleted
             list<CVRSOS__LocalSteward__c> obj2 = ext.getStewards();
