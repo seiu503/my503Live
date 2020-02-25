@@ -2,7 +2,7 @@ public with sharing class UserStewardListController {
 	
     private final User user;
     private final Contact userContact;
-    private final Account userAccount;
+    public final Account userAccount;
     private final CVRSOS__Local__c sublocal;
     private final Id sublocalId;
 
@@ -13,7 +13,7 @@ public with sharing class UserStewardListController {
         this.userContact = [SELECT Id, Name, AccountId from Contact WHERE Id = :user.ContactId];
        System.debug(LoggingLevel.INFO, '>>> USER CONTACT' + userContact);
 
- 			this.userAccount = [SELECT Id, Sublocal__c from Account WHERE Id = :userContact.AccountId];
+ 			this.userAccount = [SELECT Id, Name, Sublocal__c, Organizer_Name__c, Organizer_Email__c, Organizer_Cell_Phone__c from Account WHERE Id = :userContact.AccountId];
             System.debug(LoggingLevel.INFO, '>>> USER ACCOUNT' + userAccount);
 
                 this.sublocal = [SELECT Id from CVRSOS__Local__c where Id = :userAccount.Sublocal__c];
@@ -31,16 +31,22 @@ public with sharing class UserStewardListController {
                 Steward_Best_Phone__c,
                 Steward_Preferred_Email__c,
                 Steward_Worksite_Employer__c,
-                Steward_Worksite__c
+                Steward_Worksite__c,
+                CVRSOS__ContactId__r.Title 
             FROM    CVRSOS__LocalSteward__c
             WHERE   ( CVRSOS__LocalId__c = :this.sublocalId)
         ];
         if(stewardList.size() > 0) {
+            System.debug(LoggingLevel.INFO, '>>> stewardList' + stewardList);
             return stewardList;
         } else {
             System.debug(LoggingLevel.INFO, '>>> stewardList.size === 0');
             return null;
         }
          
+    }
+    
+    public Account getUserAccount() {
+        return userAccount;
     }
 }

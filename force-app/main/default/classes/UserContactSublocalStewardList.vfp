@@ -1,19 +1,33 @@
-<apex:page standardController="User" extensions="UserStewardListController" sidebar="false">
-    	<div style="width: 100%; display: flex; justify-content:space-between; padding: 10px 0;">
-            Static Text: Header
-   		</div>
+<apex:page standardController="User" extensions="UserStewardListController" sidebar="false" applyBodyTag="false" standardStylesheets="false">
+    	<head>
+          <title>{!stewards[0].Steward_Worksite_Employer__c }</title>
+          <apex:slds /> 
+        </head>
+    	<apex:stylesheet value="{!$Resource.StewardListStyles}"/>
+        <h2 style="width: 100%; padding: 10px 0; font-weight: bold; font-size: 2em;">
+            <apex:outputText value="{!userAccount.Name }" />
+        </h2>
+        <h3 style="width: 100%; padding: 10px 0; font-weight: bold; font-size: 1.5em;">
+            My Stewards
+        </h3>
+    	<table style="width: 100%;">
+            <thead>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Employer</th>
+                <th>Worksite</th>
+                <th>Job Title</th>
+            </thead>
         <apex:repeat value="{!stewards}" var="s">
-            <div style="width: 100%; display: flex; justify-content:space-between; padding: 10px 0;">
-                <div style="width: 100%; display: flex; justify-content:space-between; padding: 10px 0;">
-                    Static Text: Steward
-                </div>
-                <div style="display: flex; flex-direction: column;">
-                    <apex:outputText value="{!s.CVRSOS__StewardName__c}" style="font-weight: bold;" />
-                    <apex:outputText value="{!s.Steward_Best_Phone__c}" style="" />
-                    <apex:outputText value="{!s.Steward_Preferred_Email__c}" style="" />
-                    <apex:outputText value="{!s.Steward_Worksite_Employer__c}" style="" />
-                    <apex:outputText value="{!s.Steward_Worksite__c}" style="" />
-                </div>
-            </div>
+            <tr>
+                <td><apex:outputField value="{!s.CVRSOS__StewardName__c}" style="font-weight: bold; font-size: 1.2em;" /></td>
+                 <td><apex:outputField value="{!s.Steward_Best_Phone__c}" style="" /></td>
+                 <td><apex:outputField value="{!s.Steward_Preferred_Email__c}" style="" /></td>
+                 <td><apex:outputField value="{!s.Steward_Worksite_Employer__c}" style="" /></td>
+                  <td><apex:outputField value="{!s.Steward_Worksite__c}" style="" /></td>
+                  <td><apex:outputField value="{!s.CVRSOS__ContactId__r.Title}" style="" /></td>            
+             </tr>
         </apex:repeat>
+    </table>
 </apex:page>
