@@ -35,6 +35,7 @@ public with sharing class UserStewardListController {
                 CVRSOS__ContactId__r.Title 
             FROM    CVRSOS__LocalSteward__c
             WHERE   ( CVRSOS__LocalId__c = :this.sublocalId)
+            ORDER BY Steward_Worksite__c
         ];
         if(stewardList.size() > 0) {
             System.debug(LoggingLevel.INFO, '>>> stewardList' + stewardList);
