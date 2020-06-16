@@ -1,0 +1,8 @@
+html body .brandQuaternaryBgr {
+    background : white !important;
+}
+
+.slds-scope .slds-theme_default, .slds-scope .slds-theme--default {
+    background-color: rgb(255, 255, 255);
+    color: rgb(83, 17, 120);
+}
