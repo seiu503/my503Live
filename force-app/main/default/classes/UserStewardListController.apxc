@@ -28,7 +28,7 @@ public with sharing class UserStewardListController {
         CVRSOS__LocalSteward__c[] stewardList = [
             SELECT  Id,
                 CVRSOS__StewardName__c,
-                Steward_Best_Phone__c,
+                Steward_Mobile_Phone__c,
                 Steward_Preferred_Email__c,
                 Steward_Worksite_Employer__c,
                 Steward_Worksite__c,
