@@ -1,0 +1,42 @@
+<apex:page standardController="User" extensions="UserCaseListController" sidebar="false" applyBodyTag="false" standardStylesheets="false" lightningStyleSheets="true">
+    	<head>
+          <apex:slds /> 
+        </head>
+    	<apex:stylesheet value="{!$Resource.StewardListStyles}"/>
+    	<style type="text/css">
+                body {
+                    background-color: white;
+                }
+    		</style>
+    <div class="slds-box slds-theme_default">
+    <h3 style="width: 100%; padding: 10px 0; font-weight: bold; font-size: 1.5em;">
+            My Cases
+    </h3>
+    <apex:outputText value="You have no active cases." rendered="{!ISBLANK(cases)}"/>
+    &nbsp;
+    <apex:outputLink value="https://seiu503.force.com/my503live/s/contactsupport"  target="_blank" rendered="{!ISBLANK(cases)}">
+        <apex:outputText value="Click here to open a new case."/>
+    </apex:outputLink>
+    <apex:outputPanel rendered="{!NOT(ISBLANK(cases))}" > 
+
+        <table style="width: 100%;">
+                <thead>
+                    <th>Case number</th>
+                    <th>Case created date</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                </thead>
+            <apex:repeat value="{!cases}" var="c">
+                <tr>
+                    <td><apex:outputField value="{!c.CaseNumber}" style="" /></td>
+                    <td><apex:outputField value="{!s.CreatedDate}" style="" /></td>
+                    <td><apex:outputField value="{!s.Subject}" style="font-weight: bold; font-size: 1.2em;" /></td>
+                    <td><apex:outputField value="{!s.Status}" style="" /></td>      
+                </tr>
+                </apex:repeat>
+        </table>
+        <hr/>
+    </apex:outputPanel>
+    
+    </div>
+</apex:page>
