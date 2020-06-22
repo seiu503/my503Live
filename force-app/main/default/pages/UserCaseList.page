@@ -29,9 +29,9 @@
             <apex:repeat value="{!cases}" var="c">
                 <tr>
                     <td><apex:outputField value="{!c.CaseNumber}" style="" /></td>
-                    <td><apex:outputField value="{!s.CreatedDate}" style="" /></td>
-                    <td><apex:outputField value="{!s.Subject}" style="font-weight: bold; font-size: 1.2em;" /></td>
-                    <td><apex:outputField value="{!s.Status}" style="" /></td>      
+                    <td><apex:outputField value="{!c.CreatedDate}" style="" /></td>
+                    <td><apex:outputField value="{!c.Subject}" style="font-weight: bold; font-size: 1.2em;" /></td>
+                    <td><apex:outputField value="{!c.Status}" style="" /></td>      
                 </tr>
                 </apex:repeat>
         </table>

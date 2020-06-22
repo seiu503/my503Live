@@ -32,7 +32,7 @@ private class UserCaseListControllerTest {
                 timezonesidkey = 'America/Los_Angeles',
                 alias='testuser',
                 lastname='UserLast',
-                contactId = c3.id
+                contactId = ct.id
             );
             insert u;
 
@@ -50,15 +50,14 @@ private class UserCaseListControllerTest {
                 UserCaseListController ext = new UserCaseListController(sc);
 
                 //Test that Case is Inserted
-                list<Case> obj1 = ext.getCases();
-                system.assertequals(obj1.size(),1);
+                list<Case> caseList = ext.getCases();
+                system.assertequals(caseList.size(),1);
                 
                 //Delete Records
                 delete caseList;
                 
                 //Test that Case is Deleted
-                list<Case> obj2 = ext.getCases();
-                system.assertEquals(obj2.size(),0); 
+                system.assertEquals(caseList.size(),0); 
             }
 
             Test.StopTest();
