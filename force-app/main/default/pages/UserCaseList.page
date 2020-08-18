@@ -28,7 +28,13 @@
                 </thead>
             <apex:repeat value="{!cases}" var="c">
                 <tr>
-                    <td><apex:outputField value="{!c.CaseNumber}" style="" /></td>
+                    <td>
+                        <apex:outputText style="">
+                            <apex:outputLink value="/{!c.id}">
+                                <apex:outputField value="{!c.CaseNumber}" style="" />
+                            </apex:outputLink>
+                        </apex:outputText>
+                    </td>
                     <td><apex:outputField value="{!c.CreatedDate}" style="" /></td>
                     <td><apex:outputField value="{!c.Subject}" style="font-weight: bold; font-size: 1.2em;" /></td>
                     <td><apex:outputField value="{!c.Status}" style="" /></td>      

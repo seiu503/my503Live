@@ -15,13 +15,14 @@
             <apex:outputText value="{!userAccount.Name }" />
         </h2>
     <h3 style="width: 100%; padding: 10px 0; font-weight: bold; font-size: 1.5em;">
-            My Stewards
+            My Worksite Stewards
     </h3>
     <apex:outputText value="There are no stewards in your worksite." rendered="{!ISBLANK(stewards)}"/>
     &nbsp;
     <apex:outputLink value="https://seiu503.org/members/get-involved/union-stewards/"  target="_blank" rendered="{!ISBLANK(stewards)}">
-        <apex:outputText value="Click here to learn more about becoming a steward."/>
+        <apex:outputText value="Click here to learn more about becoming a steward"/>
     </apex:outputLink>
+    <apex:outputText value=" or call the Member Assistance Center at 1-844-503-SEIU (7348)." rendered="{!ISBLANK(stewards)}"/>
     <apex:outputPanel rendered="{!NOT(ISBLANK(stewards))}" > 
 
         <table style="width: 100%;">
@@ -39,6 +40,38 @@
                     <td><apex:outputField value="{!s.Steward_Preferred_Email__c}" style="" /></td>
                     <td><apex:outputField value="{!s.Steward_Worksite__c}" style="" /></td>
                     <td><apex:outputField value="{!s.CVRSOS__ContactId__r.Title}" style="" /></td>            
+                </tr>
+                </apex:repeat>
+        </table>
+        <hr/>
+    </apex:outputpanel>
+
+    <h3 style="width: 100%; padding: 10px 0; font-weight: bold; font-size: 1.5em;">
+        My Sublocal Chief Stewards
+    </h3>
+    <apex:outputText value="There are no chief stewards in your sublocal." rendered="{!ISBLANK(chiefStewards)}"/>
+    &nbsp;
+    <apex:outputLink value="https://seiu503.org/members/get-involved/union-stewards/"  target="_blank" rendered="{!ISBLANK(chiefStewards)}">
+        <apex:outputText value="Click here to learn more about becoming a steward"/>
+    </apex:outputLink>
+    <apex:outputText value=" or call the Member Assistance Center at 1-844-503-SEIU (7348)." rendered="{!ISBLANK(chiefStewards)}"/>
+    <apex:outputPanel rendered="{!NOT(ISBLANK(chiefStewards))}" > 
+
+        <table style="width: 100%;">
+                <thead>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Worksite</th>
+                    <th>Job Title</th>
+                </thead>
+            <apex:repeat value="{!chiefStewards}" var="c">
+                <tr>
+                    <td><apex:outputField value="{!c.CVRSOS__StewardName__c}" style="font-weight: bold; font-size: 1.2em;" /></td>
+                    <td><apex:outputField value="{!c.Steward_Mobile_Phone__c}" style="" /></td>
+                    <td><apex:outputField value="{!c.Steward_Preferred_Email__c}" style="" /></td>
+                    <td><apex:outputField value="{!c.Steward_Worksite__c}" style="" /></td>
+                    <td><apex:outputField value="{!c.CVRSOS__ContactId__r.Title}" style="" /></td>            
                 </tr>
                 </apex:repeat>
         </table>
