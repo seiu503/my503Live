@@ -9,9 +9,9 @@ public with sharing class UserAttendeeListController {
         this.user = [SELECT Id, ContactId FROM User WHERE Id = :UserInfo.getUSerId()];
          System.debug(LoggingLevel.INFO, '>>> USER' + user);
         this.userContact = [SELECT Id, Name, AccountId from Contact WHERE Id = :user.ContactId];
-        this.contactId = userContact.ContactId;
+        // this.contactId = this.user.ContactId;
        System.debug(LoggingLevel.INFO, '>>> USER CONTACT' + userContact);
-       System.debug(LoggingLevel.INFO, '>>> CONTACT ID' + contactId);
+       System.debug(LoggingLevel.INFO, '>>> CONTACT ID' + this.user.ContactId);
 
     }
 
@@ -56,7 +56,7 @@ public with sharing class UserAttendeeListController {
                 conference360__Venue_Street__c,
                 Written_Materials_Translation__c
             FROM    conference360__Attendee__c
-            WHERE   (conference360__Registration_Status__c = 'Registered' AND  conference360__Event__r.conference360__Status__c = 'Active' AND conference360__Event_Start_Date__c >= :Date.Today() AND conference360__Contact__c = :this.contactId)
+            WHERE   (conference360__Registration_Status__c = 'Registered' AND  conference360__Event__r.conference360__Status__c = 'Active' AND conference360__Event_Start_Date__c >= :Date.Today() AND conference360__Contact__c = :this.user.ContactId)
             ORDER BY conference360__Event_Start_Date__c DESC
         ];
         if(attendeeList.size() > 0) {

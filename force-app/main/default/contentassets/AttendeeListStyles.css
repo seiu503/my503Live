@@ -1,0 +1,25 @@
+html body .brandQuaternaryBgr {
+    background : white !important;
+}
+
+.slds-scope .slds-theme_default, .slds-scope .slds-theme--default {
+    background-color: rgb(255, 255, 255);
+    color: rgb(83, 17, 120);
+}
+
+tr:nth-child(even) {background-color: #ede6f1;}
+
+.slds-scope tr {
+    border-bottom: 1px solid #c5c4c4;
+}
+
+.slds-scope td,
+.slds-scope th {
+    padding: 8px;
+  }
+
+@media screen and (max-width: 599px) {
+    html body.sfdcBody {
+        padding: 0px !important;
+    }
+  }
