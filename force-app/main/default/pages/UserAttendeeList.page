@@ -1,0 +1,33 @@
+<apex:page standardController="User" extensions="UserAttendeeListController" sidebar="false" applyBodyTag="false" standardStylesheets="false" lightningStyleSheets="true">
+    	<head>
+          <apex:slds /> 
+        </head>
+    	<apex:stylesheet value="{!$Resource.AttendeeListStyles}"/>
+    	<style type="text/css">
+            body {
+                background-color: white;
+            }
+    	</style>
+    <div class="slds-box slds-theme_default">    
+        <h2 style="width: 100%; padding: 10px 0; font-weight: bold; font-size: 2em;">
+            My Upcoming Events
+        </h2>
+        <apex:outputText value="You have no upcoming events." rendered="{!ISBLANK(attendees)}"/>
+        <apex:outputPanel rendered="{!NOT(ISBLANK(attendees))}" > 
+            <table style="width: 100%;">
+                <thead>
+                    <th>Event Name</th>
+                    <th>Start Date</th>
+                    <th>Status</th>
+                </thead>
+                <apex:repeat value="{!attendees}" var="a">
+                    <tr>
+                        <td><apex:outputField value="{!a.Event_Item_Public_Name__c}" style="font-weight: bold; font-size: 1.2em;" /></td>
+                        <td><apex:outputField value="{!a.conference360__Event_Start_Date__c}" style="" /></td>
+                        <td><apex:outputField value="{!a.conference360__Registration_Status__c}" style="" /></td>      
+                    </tr>
+                    </apex:repeat>
+            </table>
+        </apex:outputpanel>
+    </div>
+</apex:page>
