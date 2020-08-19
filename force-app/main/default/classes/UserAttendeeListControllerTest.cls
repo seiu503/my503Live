@@ -44,9 +44,9 @@ private class UserAttendeeListControllerTest {
                 conference360__Status__c = 'Active',
                 Confirmation_Format__c = 'Virtual',
                 conference360__Event_Start_Date__c = Date.Today().adddays(5),
-                conference360__Event_Start_Time__c = TIMEVALUE('10:00:00.000'),
+                conference360__Event_Start_Time__c = Time.newInstance(10, 0, 0, 0),
                 conference360__Event_End_Date__c = Date.Today().adddays(5),
-                conference360__Event_End_Time__c = TIMEVALUE('10:30:00.000')
+                conference360__Event_End_Time__c = Time.newInstance(10, 30, 0, 0)
                 );
 
             conference360__Event__c event2 = new conference360__Event__c(
@@ -55,9 +55,9 @@ private class UserAttendeeListControllerTest {
                 conference360__Status__c = 'Active',
                 Confirmation_Format__c = 'Virtual',
                 conference360__Event_Start_Date__c = Date.Today().adddays(6),
-                conference360__Event_Start_Time__c = TIMEVALUE('11:00:00.000'),
+                conference360__Event_Start_Time__c = Time.newInstance(11, 0, 0, 0),
                 conference360__Event_End_Date__c = Date.Today().adddays(6),
-                conference360__Event_End_Time__c = TIMEVALUE('11:30:00.000')
+                conference360__Event_End_Time__c = Time.newInstance(11, 30, 0, 0)
                 );
 
             insert event1;
@@ -81,7 +81,6 @@ private class UserAttendeeListControllerTest {
 
             conference360__Attendee__c attendee1 = new conference360__Attendee__c(
                 Accessibility_Needs__c = 'test',
-                conference360__AttendeeLink_URL__c = 'http://seiu503.org',
                 Dietary_Allergies_Other_Restrictions__c = 'test',
                 conference360__Contact__c = c.id,
                 conference360__Dietary_Preference__c = 'None',
@@ -111,7 +110,6 @@ private class UserAttendeeListControllerTest {
 
             conference360__Attendee__c attendee2 = new conference360__Attendee__c(
                 Accessibility_Needs__c = 'test',
-                conference360__AttendeeLink_URL__c = 'http://seiu503.org',
                 Dietary_Allergies_Other_Restrictions__c = 'test',
                 conference360__Contact__c = c.id,
                 conference360__Dietary_Preference__c = 'None',
@@ -180,7 +178,7 @@ private class UserAttendeeListControllerTest {
                 conference360__Venue_Street__c,
                 Written_Materials_Translation__c
             FROM    conference360__Attendee__c
-            WHERE   (conference360__Registration_Status__c = 'Registered' AND  conference360__Event__r.conference360__Status__c = 'Active' AND conference360__Event_Start_Date__c >= :Date.Today() AND conference360__Contact__c = :this.contactId)
+            WHERE   (conference360__Registration_Status__c = 'Registered' AND  conference360__Event__r.conference360__Status__c = 'Active' AND conference360__Event_Start_Date__c >= :Date.Today() AND conference360__Contact__c = :c.id)
             ORDER BY conference360__Event_Start_Date__c DESC
         ];
             System.debug(LoggingLevel.INFO, '>>> attendeeListTest');
@@ -190,7 +188,7 @@ private class UserAttendeeListControllerTest {
 
             System.runAs(u) { 
                 PageReference pageRef = Page.UserAttendeeList; 
-                pageRef.getParameters().put('id', String.valueOf(contactId));
+                pageRef.getParameters().put('id', String.valueOf(c.id));
                 Test.setCurrentPage(pageRef);
 
                 ApexPages.StandardController sc = new ApexPages.StandardController(u);
@@ -200,13 +198,15 @@ private class UserAttendeeListControllerTest {
                 list<conference360__Attendee__c> attendeeList = ext.getAttendees();
                 System.assertEquals(attendeeList.size(),2);
 
+                Delete attendeeList;
+
             }
             Test.StopTest();
 
 
 	        try {
 
-                Delete attendeeList;
+               
                 Delete attendeeListTest;
                 Delete c;
                 Delete event1;
