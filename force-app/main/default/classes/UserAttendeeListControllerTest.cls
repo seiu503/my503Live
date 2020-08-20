@@ -77,21 +77,26 @@ private class UserAttendeeListControllerTest {
                 conference360__Type__c = 'Main event ticket'
             );
 
+            insert item1;
+            insert item2;
+
             // Insert Attendees
 
             conference360__Attendee__c attendee1 = new conference360__Attendee__c(
                 conference360__Contact__c = c.id,
                 conference360__Event__c = event1.id,
                 conference360__Event_Item__c = item1.id,
-                conference360__Registration_Status__c = 'Registered'
+                conference360__Registration_Status__c = 'Registered',
+                conference360__Email__c = 'test@test.com'
             );
 
 
             conference360__Attendee__c attendee2 = new conference360__Attendee__c(
                 conference360__Contact__c = c.id,
                 conference360__Event__c = event2.id,
-                conference360__Event_Item__c = item1.id,
-                conference360__Registration_Status__c = 'Registered'
+                conference360__Event_Item__c = item2.id,
+                conference360__Registration_Status__c = 'Registered',
+                conference360__Email__c = 'test@test.com'
             );
 
             insert attendee1;
@@ -134,13 +139,12 @@ private class UserAttendeeListControllerTest {
 
 	        try {
                 Delete attendeeListTest;
-                Delete event1;
-                Delete event2;
                 Delete item1;
                 Delete item2;
                 Delete attendee1;
                 Delete attendee2;
-
+                Delete event1;
+                Delete event2;
 	        } catch (DmlException e) {
 
                 System.debug(LoggingLevel.INFO, '>>> deleteExceptions' + e);
