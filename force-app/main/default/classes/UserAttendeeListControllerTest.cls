@@ -1,4 +1,4 @@
-@isTest
+@IsTest(SeeAllData=true)
 private class UserAttendeeListControllerTest {
 
     static testMethod void testMethod1(){
@@ -129,6 +129,7 @@ private class UserAttendeeListControllerTest {
 
                 //Test that Attendees are Inserted
                 list<conference360__Attendee__c> attendeeList = ext.getAttendees();
+                // list<conference360__Attendee__c> attendeeList = UserAttendeeListController.getAttendees();
                 // System.assertEquals(attendeeList.size(),2);
 
                 // Delete attendeeList;
@@ -141,8 +142,6 @@ private class UserAttendeeListControllerTest {
                 Delete attendeeListTest;
                 Delete item1;
                 Delete item2;
-                Delete attendee1;
-                Delete attendee2;
                 Delete event1;
                 Delete event2;
 	        } catch (DmlException e) {
