@@ -1,0 +1,3 @@
+<apex:page>
+<flow:interview name="my503Live_Update_Attendee" finishLocation="{!URLFOR('/manage-my-events')}"/>
+</apex:page>

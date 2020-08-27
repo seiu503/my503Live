@@ -19,11 +19,12 @@ public without sharing class UserAttendeeListController {
         System.debug(LoggingLevel.INFO, '>>> getAttendees');
         List<conference360__Attendee__c> attendeeList = [
                 SELECT  Id,
-                Event_Item_Public_Name__c,
+                conference360__Event_Name__c,
                 conference360__Event_Start_Date__c,
                 conference360__Registration_Status__c,
                 conference360__Contact__c,
-                conference360__Event__r.conference360__Status__c
+                conference360__Event__r.conference360__Status__c,
+                conference360__AttendeeLink__c
             FROM    conference360__Attendee__c
             WHERE   (
                     conference360__Contact__c = :this.contactId

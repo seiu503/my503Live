@@ -12,17 +12,32 @@
         <h2 style="width: 100%; padding: 10px 0; font-weight: bold; font-size: 2em;">
             My Upcoming Events
         </h2>
-        <apex:outputText value="You have no upcoming events." rendered="{!ISBLANK(attendees)}"/>
+        <apex:outputText value="You are not registered for any upcoming events." rendered="{!ISBLANK(attendees)}"/>
+        &nbsp;
+        <apex:outputLink value="https://seiu503.force.com/my503live/s/events" rendered="{!ISBLANK(attendees)}">
+            <apex:outputText value="Click here to view and register for events"/>
+        </apex:outputLink>
         <apex:outputPanel rendered="{!NOT(ISBLANK(attendees))}" > 
             <table style="width: 100%;">
                 <thead>
                     <th>Event Name</th>
+                    <th>Modify or Cancel</th>
                     <th>Start Date</th>
                     <th>Status</th>
                 </thead>
                 <apex:repeat value="{!attendees}" var="a">
                     <tr>
-                        <td><apex:outputField value="{!a.Event_Item_Public_Name__c}" style="font-weight: bold; font-size: 1.2em;" /></td>
+                        <td>
+                            <apex:outputLink value="{!a.conference360__AttendeeLink__c}" style="font-weight: bold; font-size: 1.2em;" target="_blank">
+                                <apex:outputField value="{!a.conference360__Event_Name__c}"  />
+                            </apex:outputLink>
+                        </td>
+                        <td>
+                            <apex:outputLink value="{!'/attendee/' + a.conference360__Event__r.id}" > 
+                            // https://seiu503.force.com/my503live/s/sfdcpage/%2Fapex%2Fattendee%2F%3Fisdtp%3Dp1
+                                <apex:outputText value="Modify or cancel"/>
+                            </apex:outputLink>
+                        </td>
                         <td><apex:outputField value="{!a.conference360__Event_Start_Date__c}" style="" /></td>
                         <td><apex:outputField value="{!a.conference360__Registration_Status__c}" style="" /></td>      
                     </tr>
