@@ -33,8 +33,7 @@
                             </apex:outputLink>
                         </td>
                         <td>
-                            <apex:outputLink value="{!'/attendee/' + a.conference360__Event__r.id}" > 
-                            // https://seiu503.force.com/my503live/s/sfdcpage/%2Fapex%2Fattendee%2F%3Fisdtp%3Dp1
+                            <apex:outputLink value="{!URLFOR('/s/attendee/' + a.Id)}" > 
                                 <apex:outputText value="Modify or cancel"/>
                             </apex:outputLink>
                         </td>
