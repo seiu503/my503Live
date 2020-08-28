@@ -33,7 +33,7 @@
                             </apex:outputLink>
                         </td>
                         <td>
-                            <apex:outputLink value="{!URLFOR('/s/attendee/' + a.Id)}" > 
+                            <apex:outputLink value="{!a.Id}" > 
                                 <apex:outputText value="Modify or cancel"/>
                             </apex:outputLink>
                         </td>
