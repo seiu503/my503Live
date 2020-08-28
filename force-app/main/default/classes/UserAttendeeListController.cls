@@ -27,7 +27,10 @@ public without sharing class UserAttendeeListController {
                 conference360__AttendeeLink__c
             FROM    conference360__Attendee__c
             WHERE   (
-                    conference360__Contact__c = :this.contactId AND conference360__Registration_Status__c = 'Registered'
+                conference360__Registration_Status__c = 'Registered' AND  
+                conference360__Event__r.conference360__Status__c = 'Active' AND 
+                conference360__Event_Start_Date__c >= :Date.Today() AND 
+                conference360__Contact__c = :this.contactId
                     )
             ORDER BY conference360__Event_Start_Date__c DESC
         ];
