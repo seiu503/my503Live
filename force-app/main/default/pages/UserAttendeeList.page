@@ -12,6 +12,9 @@
         <h2 style="width: 100%; padding: 10px 0; font-weight: bold; font-size: 2em;">
             My Upcoming Events
         </h2>
+        <p>
+            To cancel an existing registration, click the name of the event, then click the red 'Cancel' button on the event page. Click the 'Edit' link next to an event name to update your contact information or change your translation, food, or lodging options.
+        </p>
         <apex:outputText value="You are not registered for any upcoming events." rendered="{!ISBLANK(attendees)}"/>
         &nbsp;
         <apex:outputLink value="https://seiu503.force.com/my503live/s/events" rendered="{!ISBLANK(attendees)}">
@@ -21,7 +24,7 @@
             <table style="width: 100%;">
                 <thead>
                     <th>Event Name</th>
-                    <th>Modify or Cancel</th>
+                    <th>Edit</th>
                     <th>Start Date</th>
                     <th>Status</th>
                 </thead>
@@ -34,7 +37,7 @@
                         </td>
                         <td>
                             <apex:outputLink value="{!a.Id}" > 
-                                <apex:outputText value="Modify or cancel"/>
+                                <apex:outputText value="Edit registration"/>
                             </apex:outputLink>
                         </td>
                         <td><apex:outputField value="{!a.conference360__Event_Start_Date__c}" style="" /></td>
