@@ -1,3 +1,4 @@
 <aura:component implements="force:lightningQuickAction,lightning:availableForFlowActions" access="global">
-   <aura:attribute name="pageSlug" id="pageSlug" type="String" />
+   <aura:attribute name="pageSlug" type="String" />
+   <aura:attribute name="recordId" type="String" />
 </aura:component>
